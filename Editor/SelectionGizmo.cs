@@ -18,7 +18,7 @@ namespace J1Jeong
 			internal const string showGrid = "showGrid";
 		}
 
-		[MenuItem( "Window/Hotkeys/Gizmo Icons %g" )]
+		[MenuItem( "Window/Hotkeys/Gizmo Icons %g", priority=1)]
 		public static void HideGizmoIcons()
 		{
 			Assembly asm = Assembly.GetAssembly( typeof(Editor) );
@@ -52,7 +52,7 @@ namespace J1Jeong
 		}
 		
 
-		[MenuItem( "Window/Hotkeys/Show Grid %#g" )]
+		[MenuItem( "Window/Hotkeys/Show Grid %#g", priority=1 )]
 		public static void ShowGrid()
 		{
 			Assembly asm = Assembly.GetAssembly( typeof(Editor) );
@@ -66,7 +66,7 @@ namespace J1Jeong
 		}
 
 #if UNITY_5_5_OR_NEWER
-		[MenuItem( "Window/Hotkeys/Selection Outline %h" )]
+		[MenuItem( "Window/Hotkeys/Selection Outline %h", priority=1 )]
 		public static void HideOutline()
 		{
 			Assembly asm = Assembly.GetAssembly( typeof(Editor) );
@@ -79,7 +79,7 @@ namespace J1Jeong
 			}
 		}
 
-		[MenuItem( "Window/Hotkeys/Selection Wire %#h" )]
+		[MenuItem( "Window/Hotkeys/Selection Wire %#h", priority=1 )]
 		public static void HideWireframe()
 		{
 			Assembly asm = Assembly.GetAssembly( typeof(Editor) );

@@ -3,23 +3,26 @@ using System.Collections;
 using System.Reflection;
 using UnityEditor;
 
-public class OpenWindow : EditorWindow
+namespace J1Jeong
 {
-	[MenuItem("Scene View/Open/Lighting Settings %L")]
-	static void OpenLightingSettings()
+	public class OpenWindow : EditorWindow
 	{
-		EditorApplication.ExecuteMenuItem("Window/Lighting/Settings");
-	}
+		[MenuItem( "Window/Hotkeys/Lighting Settings %L", priority=101)]
+		static void OpenLightingSettings()
+		{
+			EditorApplication.ExecuteMenuItem( "Window/Lighting/Settings" );
+		}
 
-	[MenuItem("Scene View/Open/Light Expolorer #%L")]
-	static void OpenLightExplorer()
-	{
-		EditorApplication.ExecuteMenuItem("Window/Lighting/Light Explorer");
-	}
-	
-	[MenuItem("Scene View/Open/Frame Debugger %F7")]
-	static void OpenFrameDebugger()
-	{
-		EditorApplication.ExecuteMenuItem("Window/Frame Debugger");
+		[MenuItem( "Window/Hotkeys/Light Expolorer %#L", priority=101 )]
+		static void OpenLightExplorer()
+		{
+			EditorApplication.ExecuteMenuItem( "Window/Lighting/Light Explorer" );
+		}
+
+		[MenuItem( "Window/Hotkeys/Frame Debugger %F7", priority=101 )]
+		static void OpenFrameDebugger()
+		{
+			EditorApplication.ExecuteMenuItem( "Window/Frame Debugger" );
+		}
 	}
 }
