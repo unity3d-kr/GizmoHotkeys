@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Reflection;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEditor;
 
 namespace J1Jeong
@@ -90,6 +92,73 @@ namespace J1Jeong
 				bool flag = (bool) property.GetValue( asm, null );
 				property.SetValue( asm, !flag, null );
 			}
+		}
+#else
+		// for Unity Old Version
+		static List<GameObject> hideObjects = new List<GameObject>();
+
+		[MenuItem("Window/Hotkeys/Hide WireFrame %h")]
+		static void HideWireframe()
+		{
+			bool IsAllHide = true;
+
+			for (int i = 0; i < Selection.gameObjects.Length; i++)
+			{
+				GameObject s = Selection.gameObjects[i];
+				if (hideObjects.Contains(s) == false)
+				{
+					IsAllHide = false;
+					break;
+				}
+			}
+
+			// Unselected
+			for (int i = 0; i < hideObjects.Count; i++)
+			{
+				GameObject s = hideObjects[i];
+				if (s != null && s.activeSelf)
+				{
+					Renderer rend = s.GetComponent<Renderer>();
+					if (rend)
+						EditorUtility.SetSelectedWireframeHidden(rend, false); // show
+				}
+			}
+			hideObjects.Clear();
+
+			for (int i = 0; i < Selection.gameObjects.Length; i++)
+			{
+				GameObject s = Selection.gameObjects[i];
+				Renderer rend = s.GetComponent<Renderer>();
+
+				if (rend)
+				{
+					if (IsAllHide)
+					{
+						EditorUtility.SetSelectedWireframeHidden(rend, false); // show
+					}
+					else
+					{
+						EditorUtility.SetSelectedWireframeHidden(rend, true); // hide
+						hideObjects.Add(s);
+					}
+				}
+				else if(Selection.gameObjects.Length == 1)
+				{
+					Renderer[] children = s.GetComponentsInChildren<Renderer>();
+					for (int j = 0; j < children.Length; j++)
+					{
+						EditorUtility.SetSelectedWireframeHidden(rend, true); // hide
+						hideObjects.Add(children[j].gameObject);
+					}
+
+				}
+			}
+		}
+
+		[MenuItem("Window/Hotkeys/Hide WireFrame %h", true)]
+		static bool HideWireframeValidate()
+		{
+			return Selection.activeGameObject != null;
 		}
 #endif
 	}
